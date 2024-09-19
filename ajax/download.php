@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Create a new ZIP archive
     $zip = new ZipArchive();
     $milliseconds = round(microtime(true) * 1000);
-    $file_zip = 'Heicfilter_' . rand(1000, 1000000) . "_" . $milliseconds . ".zip";
+    $file_zip = 'heicconverter_' . rand(1000, 1000000) . "_" . $milliseconds . ".zip";
     $zipFileName = '../tempzip/' . $file_zip;
 
     if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== TRUE) {
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // header('Content-Disposition: attachment; filename="' . basename($zipFileName) . '"');
         // header('Content-Length: ' . filesize($zipFileName));
         $response["file_name"] = $file_zip;
-        $response["download_zip"] = "https://heicfilter.com/wp-content/themes/heicfilter/tempzip/" . $file_zip;
+        $response["download_zip"] = "https://heicjpgconverter.com/wp-content/plugins/heicconverter/tempzip/" . $file_zip;
         echo json_encode($response);
 
         // Delete the ZIP file after download

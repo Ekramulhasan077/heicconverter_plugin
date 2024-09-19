@@ -14,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $tempImagePath = '../temp/' . $tempImageName;
 
 
-        $path = "../../../uploads/heicfilter/";
+        $path = "../../../uploads/heicconverter/";
         $milliseconds = round(microtime(true) * 1000);
         $random_text = rand(1000, 1000000) . "_" . $milliseconds;
-        $final_image = "Heicfilter_" . $random_text . "." . $format;
+        $final_image = "heicconverter_" . $random_text . "." . $format;
         $cropFile = "cropped_" .$random_text . ".jpg";
         $croppedOutputPath = $path . $cropFile;
 
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $response["download_file"] = $final_image;
             $response["preview_image"] = $cropFile;
             $response["download_path"] = "../temp/" . strtolower($tempImageName);
-            $response["download_link"] = "https://heicfilter.com/wp-content/uploads/heicfilter/" . strtolower($final_image);
+            $response["download_link"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/" . strtolower($final_image);
             echo json_encode($response);
 
         } catch (ImagickException $e) {

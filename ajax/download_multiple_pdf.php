@@ -41,13 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $milliseconds = round(microtime(true) * 1000);
     $random_text = rand(1000, 1000000) . "_" . $milliseconds;
-    $final_image = "heicfilter_" . $random_text . ".pdf";
+    $final_image = "heicconverter_" . $random_text . ".pdf";
 
-    $pdfFilePath = '../../../uploads/heicfilter/' . $final_image;
+    $pdfFilePath = '../../../uploads/heicconverter/' . $final_image;
     $pdf->Output('F', $pdfFilePath);
 
     $response["file_name"] = $final_image;
-    $response["download_zip"] = "https://heicfilter.com/wp-content/uploads/heicfilter/" . $final_image;
+    $response["download_zip"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/" . $final_image;
     echo json_encode($response);
 
 
