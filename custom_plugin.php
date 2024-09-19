@@ -97,4 +97,4 @@ function custom_plugin_add_html($content) {
     }
     return $content;
 }
-add_filter('the_content', 'custom_plugin_add_html');
+add_shortcode('the_content', 'custom_plugin_add_html');
