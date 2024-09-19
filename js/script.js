@@ -135,7 +135,7 @@ function uploadImage(layoutId) {
     formData.append('format', "jpg");
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '../wp-content/plugins/heicconverter/ajax/convert.php', true);
+    xhr.open('POST', '../wp-content/plugins/heicconverter_plugin/ajax/convert.php', true);
 
     xhr.upload.addEventListener('progress', function (event) {
         if (event.lengthComputable) {
@@ -240,7 +240,7 @@ function downloadAll() {
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '../wp-content/plugins/heicconverter/ajax/download.php', true);
+    xhr.open('POST', '../wp-content/plugins/heicconverter_plugin/ajax/download.php', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     // xhr.onreadystatechange = function () {
     //         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -268,7 +268,7 @@ function insertRecord(fileName, fileType) {
     formData.append('file_type', fileType);
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '../wp-content/plugins/heicconverter/ajax/insert_record.php', true);
+    xhr.open('POST', '../wp-content/plugins/heicconverter_plugin/ajax/insert_record.php', true);
 
     xhr.onload = function () {
 
