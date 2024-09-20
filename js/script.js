@@ -279,7 +279,6 @@ function insertRecord(fileName, fileType) {
 }
 
 function downloadFile(fileName, url) {
-    alert("turjo");
     const formData = new FormData();
     formData.append('download', url);
 
@@ -287,7 +286,8 @@ function downloadFile(fileName, url) {
     xhr.open('POST', '../wp-content/plugins/heicconverter_plugin/ajax/download_file.php', true);
 
     xhr.onload = function () {
-
+        const response = JSON.parse(xhr.responseText);
+        alert(response);
     };
 
     xhr.send(formData);
