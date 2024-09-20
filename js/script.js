@@ -279,6 +279,7 @@ function insertRecord(fileName, fileType) {
 }
 
 function downloadFile(fileName, url) {
+    alert("load");
     const formData = new FormData();
     formData.append('download', url);
 
