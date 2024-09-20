@@ -9,7 +9,12 @@ Author: Md Turjo
 // Enqueue the CSS and JavaScript files
 function custom_plugin_enqueue_files() {
     wp_enqueue_style('custom-plugin-css', plugin_dir_url(__FILE__) . 'css/style.css');
-    wp_enqueue_script('custom-plugin-js', plugin_dir_url(__FILE__) . 'js/script.js', array('jquery'), null, true);
+    if (is_page('heic-to-pdf')) {
+        wp_enqueue_script('custom-plugin-js', plugin_dir_url(__FILE__) . 'js/pdf_script.js', array('jquery'), null, true);
+    }else{
+        wp_enqueue_script('custom-plugin-js', plugin_dir_url(__FILE__) . 'js/script.js', array('jquery'), null, true);
+    }
+    
 }
 add_action('wp_enqueue_scripts', 'custom_plugin_enqueue_files');
 
@@ -188,6 +193,7 @@ function custom_plugin_add_html($content) {
     </form>
         </div>
         ';
+        $content = $custom_html;
     }else{
         $custom_html = '
         <div class="light">
