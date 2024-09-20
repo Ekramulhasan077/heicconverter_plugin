@@ -166,7 +166,7 @@ function uploadImage(layoutId) {
             document.getElementsByClassName("extra-box-layout")[layoutId].style.display = "none";
             const downloadLink = document.createElement('a');
             downloadLink.setAttribute("target", "_blank");
-            downloadLink.setAttribute("onclick", "downloadFile('0', '" + response.download_link + "')");
+            downloadLink.setAttribute("onclick", "downloadFile('"+0+"', '" + response.download_link + "')");
             // downloadLink.setAttribute("href", "https://heicjpgconverter.com/wp-content/plugins/heicconverter/download.php?download="+response.download_link);
             downloadLink.innerHTML = '<i class="zp zp-download"></i>Download';
             document.getElementsByClassName("control-box")[layoutId].appendChild(downloadLink);
