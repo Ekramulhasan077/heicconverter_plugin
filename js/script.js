@@ -281,7 +281,6 @@ function insertRecord(fileName, fileType) {
 function downloadFile(fileName, url) {
     alert("turjo");
     const formData = new FormData();
-    formData.append('file_name', fileName);
     formData.append('download', url);
 
     const xhr = new XMLHttpRequest();
