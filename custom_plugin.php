@@ -194,29 +194,6 @@ function custom_plugin_add_html($content) {
         </div>
         ';
         $content = $custom_html;
-    }else if(is_page('download')){
-        $imageUrl = $_GET["download"]; // URL of the image
-
-// Get the image content
-$imageContent = file_get_contents($imageUrl);
-if ($imageContent === FALSE) {
-    http_response_code(404);
-    echo 'Image not found.';
-    exit;
-}
-
-// Set headers to force download
-header('Content-Description: File Transfer');
-header('Content-Type: application/octet-stream');
-header('Content-Disposition: attachment; filename="' . basename($imageUrl) . '"');
-header('Expires: 0');
-header('Cache-Control: must-revalidate');
-header('Pragma: public');
-header('Content-Length: ' . strlen($imageContent));
-
-// Output the image content
-echo $imageContent;
-exit;
     }else{
         $custom_html = '
         <div class="light">

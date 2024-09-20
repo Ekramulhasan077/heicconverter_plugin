@@ -166,7 +166,8 @@ function uploadImage(layoutId) {
             document.getElementsByClassName("extra-box-layout")[layoutId].style.display = "none";
             const downloadLink = document.createElement('a');
             downloadLink.setAttribute("target", "_blank");
-            downloadLink.setAttribute("href", "https://heicjpgconverter.com/wp-content/plugins/heicconverter/download.php?download="+response.download_link);
+            downloadLink.setAttribute("onclick", "downloadFile('0', '" + response.download_link + "')");
+            // downloadLink.setAttribute("href", "https://heicjpgconverter.com/wp-content/plugins/heicconverter/download.php?download="+response.download_link);
             downloadLink.innerHTML = '<i class="zp zp-download"></i>Download';
             document.getElementsByClassName("control-box")[layoutId].appendChild(downloadLink);
             document.getElementsByClassName("control-box")[layoutId].classList.add("done");
@@ -269,6 +270,21 @@ function insertRecord(fileName, fileType) {
 
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '../wp-content/plugins/heicconverter_plugin/ajax/insert_record.php', true);
+
+    xhr.onload = function () {
+
+    };
+
+    xhr.send(formData);
+}
+
+function downloadFile(fileName, url) {
+    const formData = new FormData();
+    formData.append('file_name', fileName);
+    formData.append('download', url);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '../wp-content/plugins/heicconverter_plugin/ajax/download_file.php', true);
 
     xhr.onload = function () {
 
