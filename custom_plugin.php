@@ -15,15 +15,15 @@ add_action('wp_enqueue_scripts', 'custom_plugin_enqueue_files');
 
 // Add custom HTML to pages and posts
 function custom_plugin_add_html($content) {
-    if (is_singular('post') || is_page()) {
+    if (is_page("heic-to-png")) {
         
         $custom_html = '
         <div class="light">
         <div class="d-flex format-nav-link">
         <ul>
             <li><a href="/" class="active">HEIC to JPG</a></li>
-            <li><a href="../heic-to-png">HEIC to PNG</a></li>
-            <li><a href="../heic-to-pdf">HEIC to PDF</a></li>
+            <li><a href="../heic-to-png/">HEIC to PNG</a></li>
+            <li><a href="../heic-to-pdf/">HEIC to PDF</a></li>
         </ul>
     </div>
         <form id="convertForm" method="post" enctype="multipart/form-data">
@@ -101,6 +101,9 @@ function custom_plugin_add_html($content) {
     </form>
         </div>
         ';
+        $content = $custom_html;
+    }else{
+        $custom_html = '<div>sssss</div>';
         $content = $custom_html;
     }
     return $content;
