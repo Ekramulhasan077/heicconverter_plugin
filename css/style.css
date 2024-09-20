@@ -10,6 +10,7 @@
  Text Domain: heicfilter
 */
 @import url('bootstrap.min.css');
+@import url('../assets/icons/library.css');
 
 body {
     font-family: Arial, sans-serif;
