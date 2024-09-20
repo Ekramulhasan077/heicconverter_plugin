@@ -19,6 +19,13 @@ function custom_plugin_add_html($content) {
         
         $custom_html = '
         <div class="light">
+        <div class="d-flex format-nav-link">
+        <ul>
+            <li><a href="/" class="active">HEIC to JPG</a></li>
+            <li><a href="../heic-to-png">HEIC to PNG</a></li>
+            <li><a href="../heic-to-pdf">HEIC to PDF</a></li>
+        </ul>
+    </div>
         <form id="convertForm" method="post" enctype="multipart/form-data">
         <div class="d-block cursor-pointer hf-main-content"
             style=" pointer-events: none;">
