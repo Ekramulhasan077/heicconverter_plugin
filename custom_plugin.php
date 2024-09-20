@@ -93,7 +93,7 @@ function custom_plugin_add_html($content) {
     </form>
         </div>
         ';
-        $content .= $custom_html;
+        $content = $custom_html;
     }
     return $content;
 }
