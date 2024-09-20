@@ -11,12 +11,12 @@ function custom_plugin_enqueue_files() {
     wp_enqueue_style('custom-plugin-css', plugin_dir_url(__FILE__) . 'css/style.css');
     wp_enqueue_script('custom-plugin-js', plugin_dir_url(__FILE__) . 'js/script.js', array('jquery'), null, true);
 }
-
+add_action('wp_enqueue_scripts', 'custom_plugin_enqueue_files');
 
 // Add custom HTML to pages and posts
 function custom_plugin_add_html($content) {
     if (is_singular('post') || is_page()) {
-        add_action('wp_enqueue_scripts', 'custom_plugin_enqueue_files');
+        
         $custom_html = '
         <div class="light">
         <form id="convertForm" method="post" enctype="multipart/form-data">
