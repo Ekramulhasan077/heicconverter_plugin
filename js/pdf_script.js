@@ -205,7 +205,7 @@ var totalImage = 0;
                 document.getElementsByClassName("extra-box-layout")[layoutId].style.display = "none";
                 const downloadLink = document.createElement('a');
                 downloadLink.setAttribute("target", "_blank");
-                downloadLink.setAttribute("href", "ttps://heicjpgconverter.com/download?download="+response.download_link);
+                downloadLink.setAttribute("href", "https://heicjpgconverter.com/download?download="+response.download_link);
                 downloadLink.innerHTML = '<i class="zp zp-download"></i>Download';
                 document.getElementsByClassName("control-box")[layoutId].appendChild(downloadLink);
                 document.getElementsByClassName("control-box")[layoutId].classList.add("done");
