@@ -277,25 +277,42 @@ function insertRecord(fileName, fileType) {
 
     xhr.send(formData);
 }
-
 function downloadFile(fileName, url) {
     alert("load");
+
     const formData = new FormData();
     formData.append('download', url);
 
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '../wp-content/plugins/heicconverter_plugin/ajax/download_file.php', true);
 
+    // Set response type to 'blob' to handle binary data
+    xhr.responseType = 'blob';
+
     xhr.onload = function () {
-        
-        var downloadUrl = URL.createObjectURL(xhr.responseText);
-                var link = document.createElement('a');
-                link.href = downloadUrl;
-                link.download = imageUrl.split('/').pop(); // Set the downloaded file's name
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+        if (xhr.status === 200) { // Ensure the request was successful
+            var blob = xhr.response; // The binary data
+            var downloadUrl = URL.createObjectURL(blob);
+
+            var link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = "fileName"; // Use the provided file name or parse it from URL
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Clean up the object URL after the download
+            URL.revokeObjectURL(downloadUrl);
+        } else {
+            alert('Failed to download file.');
+        }
+    };
+
+    // Handle errors
+    xhr.onerror = function () {
+        alert('Request failed.');
     };
 
     xhr.send(formData);
 }
+
