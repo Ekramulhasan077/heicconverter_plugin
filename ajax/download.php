@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // header('Content-Disposition: attachment; filename="' . basename($zipFileName) . '"');
         // header('Content-Length: ' . filesize($zipFileName));
         $response["file_name"] = $file_zip;
-        $response["download_zip"] = "https://heicjpgconverter.com/wp-content/plugins/heicconverter/tempzip/" . $file_zip;
+        $response["download_zip"] = "https://heicjpgconverter.com/wp-content/plugins/heicconverter_plugins/tempzip/" . $file_zip;
         echo json_encode($response);
 
         // Delete the ZIP file after download
