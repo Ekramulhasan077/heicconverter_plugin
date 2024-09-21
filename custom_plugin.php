@@ -211,10 +211,29 @@ $table_media = $wpdb->prefix . 'heicfilter_media';
         $datePlusOneHour = date('Y-m-d H:i:s', $timestampPlusOneHour);
 
         $result_media = $wpdb->get_results("SELECT * FROM $table_media WHERE user_id = '$userId' AND UNIX_TIMESTAMP(created_date) > UNIX_TIMESTAMP('$datePlusOneHour') ORDER BY id DESC");
-       
-        $custom_html = '<div class="d-block hf-main-content" style="padding: 10px;">
         
+        
+        $custom_html = '<div class="d-block hf-main-content" style="padding: 10px;">';
+
+if (!empty($result_media)) {
+    foreach ($result_media as $row) {
+        $custom_html .= '<div class="photo-item-model">
+
+            <img src="wp-content/uploads/heicfilter/' . "cropped" . substr($row->file_name, 10, -4) . '.jpg" alt="">
+            <div class="photo-model-info">
+                <h2>' . $row->file_name . '</h2>
+                <h3>Format: <strong>' . $row->file_type . '</strong></h3>
+                <h3>Time: <strong>' . "ddd" . '</strong></h3>
+            </div>
+            <div class="photo-model-action">
+                <a class="cursor-pointer" onclick="sharePopUp(\'' . 'cropped' . substr($row->file_name, 10, -4) . '.jpg\', \'' . $row->id . '\', \'' . $row->created_date . '\')"><i class="zp zp-share"></i></a>
+                <a target="_blank" href="download?download=https://heicfilter.com/wp-content/uploads/heicfilter/' . $row->file_name . '"><i class="zp zp-download"></i></a>
+            </div>
         </div>';
+    }
+}
+
+$custom_html .= '</div>';
         $content = $custom_html;
     }else{
         $custom_html = '
