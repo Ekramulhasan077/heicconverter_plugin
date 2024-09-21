@@ -287,8 +287,14 @@ function downloadFile(fileName, url) {
     xhr.open('POST', '../wp-content/plugins/heicconverter_plugin/ajax/download_file.php', true);
 
     xhr.onload = function () {
-        // const response = JSON.parse(xhr.responseText);
-        alert(xhr.responseText);
+        
+        var downloadUrl = URL.createObjectURL(xhr.responseText);
+                var link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = imageUrl.split('/').pop(); // Set the downloaded file's name
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
     };
 
     xhr.send(formData);
