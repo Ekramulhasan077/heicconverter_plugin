@@ -287,8 +287,8 @@ function downloadFile(fileName, url) {
     xhr.open('POST', '../wp-content/plugins/heicconverter_plugin/ajax/download_file.php', true);
 
     xhr.onload = function () {
-        const response = JSON.parse(xhr.responseText);
-        alert(response);
+        // const response = JSON.parse(xhr.responseText);
+        alert(xhr.responseText);
     };
 
     xhr.send(formData);
