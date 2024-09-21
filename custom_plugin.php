@@ -195,25 +195,25 @@ function custom_plugin_add_html($content) {
         ';
         $content = $custom_html;
     }else if (is_page('gallery')) {
-//         global $wpdb;
-// $table_session = $wpdb->prefix . 'session_time';
-// $table_settings = $wpdb->prefix . 'heicfilter_settings';
-// $get_session_data = $wpdb->get_row("SELECT session.title, session.time FROM `$table_settings` AS setting LEFT JOIN `$table_session` AS session ON setting.session_id=session.id WHERE setting.id = 1");
-// $table_media = $wpdb->prefix . 'heicfilter_media';
+        global $wpdb;
+$table_session = $wpdb->prefix . 'session_time';
+$table_settings = $wpdb->prefix . 'heicfilter_settings';
+$get_session_data = $wpdb->get_row("SELECT session.title, session.time FROM `$table_settings` AS setting LEFT JOIN `$table_session` AS session ON setting.session_id=session.id WHERE setting.id = 1");
+$table_media = $wpdb->prefix . 'heicfilter_media';
 
 
-//         $userId = $_COOKIE["user_id"];
+        $userId = $_COOKIE["user_id"];
 
-//         $currentTimestamp = time();
-//         // Add 1 hour (3600 seconds) to the current timestamp
-//         $timestampPlusOneHour = $currentTimestamp - $get_session_data->time;
-//         // Convert the timestamp to a human-readable format
-//         $datePlusOneHour = date('Y-m-d H:i:s', $timestampPlusOneHour);
+        $currentTimestamp = time();
+        // Add 1 hour (3600 seconds) to the current timestamp
+        $timestampPlusOneHour = $currentTimestamp - $get_session_data->time;
+        // Convert the timestamp to a human-readable format
+        $datePlusOneHour = date('Y-m-d H:i:s', $timestampPlusOneHour);
 
-//         $result_media = $wpdb->get_results("SELECT * FROM $table_media WHERE user_id = '$userId' AND UNIX_TIMESTAMP(created_date) > UNIX_TIMESTAMP('$datePlusOneHour') ORDER BY id DESC");
+        $result_media = $wpdb->get_results("SELECT * FROM $table_media WHERE user_id = '$userId' AND UNIX_TIMESTAMP(created_date) > UNIX_TIMESTAMP('$datePlusOneHour') ORDER BY id DESC");
        
         $custom_html = '<div class="d-block hf-main-content" style="padding: 10px;">
-        dfdsfd
+        
         </div>';
         $content = $custom_html;
     }else{
