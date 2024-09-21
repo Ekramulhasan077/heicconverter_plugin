@@ -314,7 +314,7 @@ var totalImage = 0;
                 document.getElementById("g_drive_btn").style.opacity = "1";
                 const response = JSON.parse(xhr.responseText);
                 var link = document.createElement('a');
-                link.setAttribute('href', "https://heicjpgconverter.com/wp-content/plugins/heicconverter/download.php?download="+ response.download_zip);
+                link.setAttribute('href', "https://heicjpgconverter.com/download?download="+ response.download_zip);
                 link.setAttribute('download', response.file_name);
                 link.click();
             }
