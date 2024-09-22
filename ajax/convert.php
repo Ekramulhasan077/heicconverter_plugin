@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $imagick->setImageCompressionQuality(30);
 
         // Write the image to the destination path
-        $imagick->writeImage($path . $final_image);
+        $imagick->writeImage($path . strtolower($final_image));
 
 
 
@@ -45,15 +45,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $imagick->clear();
         $croppedImage->clear();
 
-        unlink($source);
+        // unlink($source);
 
         $response["message"] = 'Completed.';
         $response['convert_type'] = strtoupper($format);
         $response["download_file"] = $final_image;
         $response["preview_image"] = $cropFile;
-        $response["preview_path"] = "../../wp-content/uploads/heicconverter/" . $final_image;
-        $response["download_path"] = $path . $final_image;
-        $response["download_link"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/" . $final_image;
+        $response["preview_path"] = "../../wp-content/uploads/heicconverter/" . strtolower($final_image);
+        $response["download_path"] = $path . strtolower($final_image);
+        $response["download_link"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/" . strtolower($final_image);
         echo json_encode($response);
     }
 
@@ -64,12 +64,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $img = $_FILES['image']['name'];
     $tmp = $_FILES['image']['tmp_name'];
     // get uploaded file's extension
-    $ext = pathinfo($img, PATHINFO_EXTENSION);
+    $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
     // can upload same image using rand function
     $final_image = rand(1000, 1000000) . $img;
     // check's valid format
     if (in_array($ext, $valid_extensions)) {
-        $path = $path . $final_image;
+        $path = $path . strtolower($final_image);
         if (move_uploaded_file($tmp, $path)) {
             convertHeicToJpg($path, $_POST["format"]);
         }
