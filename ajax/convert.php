@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $final_image = rand(1000, 1000000) . $img;
     // check's valid format
     if (in_array($ext, $valid_extensions)) {
-        $path = $path . strtolower($final_image);
+        $path = $path . $final_image;
         if (move_uploaded_file($tmp, $path)) {
             convertHeicToJpg($path, $_POST["format"]);
         }
