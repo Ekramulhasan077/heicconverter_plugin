@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // $imagick->clear();
         // $croppedImage->clear();
 
-        $command = escapeshellcmd("pwd");
+        $command = escapeshellcmd("sudo ../script.sh");
         // Execute the command
         $output = shell_exec($command);
 
