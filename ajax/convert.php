@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // $imagick->clear();
         // $croppedImage->clear();
 
-        $command = escapeshellcmd("sh /var/www/heicconverter/wp-content/plugins/heicconverter_plugin/script.sh");
+        $command = escapeshellcmd("sh ../script.sh");
         // Execute the command
         $output = shell_exec($command);
 
