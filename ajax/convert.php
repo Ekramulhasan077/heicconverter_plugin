@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // $imagick->clear();
         // $croppedImage->clear();
 
-        $command = escapeshellcmd("python3 ../main.py '$argument'");
+        $command = escapeshellcmd("python3 ../main.py 'turjo bd'");
         // Execute the command
         $output = shell_exec($command);
 
