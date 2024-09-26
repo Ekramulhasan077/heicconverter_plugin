@@ -41,15 +41,11 @@ fileInput.addEventListener('change', loadFile);
 
 var loadFile = function (event) {
     const input = event.target;
-    let maxFile = getCookie("convert_image");
-    if (maxFile > 3) {
-        alert("You can upload a maximum of 30 files.");
+    let maxFile = 30;
+    if (input.files.length > maxFile) {
+        alert("You can upload a maximum of " + maxFile + " files.");
         return false;
     }
-    // if (input.files.length > maxFile) {
-    //     alert("You can upload a maximum of " + maxFile + " files.");
-    //     return false;
-    // }
     document.getElementById("drop_down_body").style.pointerEvents = "none";
 
     document.getElementById("again-button").style.pointerEvents = "painted";
@@ -116,24 +112,6 @@ var loadFile = function (event) {
 
 };
 
-
-function getCookie(name) {
-    let cookieArr = document.cookie.split(";");
-    
-    for(let i = 0; i < cookieArr.length; i++) {
-        let cookiePair = cookieArr[i].split("=");
-        
-        // Remove white space
-        let key = cookiePair[0].trim();
-        
-        if (key === name) {
-            return decodeURIComponent(cookiePair[1]);
-        }
-    }
-    
-    // If cookie not found
-    return null;
-}
 
 function converterLoop() {
     
