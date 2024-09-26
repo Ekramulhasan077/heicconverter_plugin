@@ -1,3 +1,3 @@
 #!/bin/bash
 
-pwd
+python3 ../main.py
