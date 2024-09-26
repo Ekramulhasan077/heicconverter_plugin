@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $response["message"] = 'Completed.';
             $response['convert_type'] = strtoupper($format);
             $response["download_file"] = $final_image;
-            $response["preview_image"] = $cropFile;
+            $response["preview_image"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/".$dirName."/" . $cropFile;
             $response["download_path"] = "../temp/" . $dirName . "/" . strtolower($tempImageName);
             $response["download_link"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/". $dirName . "/" . $final_image;
             echo json_encode($response);
