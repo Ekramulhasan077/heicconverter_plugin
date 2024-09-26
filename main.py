@@ -1,10 +1,10 @@
 import pyheif
 from PIL import Image
+from time import sleep
 
 def convert_heic_to_jpg(heic_file_path, jpg_file_path, quality=85, resize_factor=None):
     
-    # Read the HEIC file
-    heif_file = pyheif.read(heic_file_path)
+    sleep(10)
     print("ok")
    
 # Example usage for low quality and smaller size
