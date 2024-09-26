@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Create a new ZIP archive
     $zip = new ZipArchive();
     $milliseconds = round(microtime(true) * 1000);
-    $file_zip = 'heicconverter_' . rand(1000, 1000000) . "_" . $milliseconds . ".zip";
+    $file_zip = 'heicjpgconverter.com_' . rand(1000, 1000000) . "_" . $milliseconds . ".zip";
     $zipFileName = '../tempzip/' . $file_zip;
 
     if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== TRUE) {
