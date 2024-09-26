@@ -2,16 +2,22 @@
 $response = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    if (!extension_loaded('imagick')) {
-        // $values['status'] = 0;
-        // $values['message'] = 'Imagick extension is not loaded.';
-        // print json_encode($values);
-        echo "Imagick extension is not loaded.";
+    if (isset($_COOKIE["dir_name"])) {
+        $dirName = $_COOKIE["dir_name"];
+    }else{
+        $milliseconds = round(microtime(true) * 1000);
+        $random_text = rand(1000, 1000000) . "_" . $milliseconds;
+
+        $command = escapeshellcmd("sh ../script.sh");
+        shell_exec($command);
+
+        setcookie("dir_name", $random_text, time() + 31104000, "/", ".heicjpgconverter.com");
+        $dirName = $random_text;
     }
 
     function convertHeicToJpg($source, $format)
     {
-        $path = "../../../uploads/heicconverter/";
+        $path = "../../../uploads/heicconverter/".$dirName."/";
         $milliseconds = round(microtime(true) * 1000);
         $random_text = rand(1000, 1000000) . "_" . $milliseconds;
         $final_image = "heicconverter_" . $random_text . "." . $format;
@@ -56,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response['convert_type'] = strtoupper($format);
         $response["download_file"] = $final_image;
         $response["preview_image"] = $cropFile;
-        $response["preview_path"] = "../../wp-content/uploads/heicconverter/" . strtolower($final_image);
+        $response["preview_path"] = "../../wp-content/uploads/heicconverter/".$dirName."/" . strtolower($final_image);
         $response["download_path"] = $path . strtolower($final_image);
         $response["download_link"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/" . strtolower($output);
         echo json_encode($response);
@@ -64,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     $valid_extensions = array('jpeg', 'jpg', 'png', 'gif', 'bmp', 'pdf', 'doc', 'ppt', 'heic', 'HEIC'); // valid extensions
-    $path = '../temp/';
+    $path = '../temp/' .$dirName."/";
 
     $img = $_FILES['image']['name'];
     $tmp = $_FILES['image']['tmp_name'];
