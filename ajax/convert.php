@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $command = escapeshellcmd("python3 ../main.py");
         // Execute the command
-        $output = exec($command);
+        $output = shell_exec($command);
 
         // unlink($source);
 
