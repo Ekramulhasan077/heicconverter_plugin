@@ -1,6 +1,8 @@
 #!/bin/bash
 
-mkdir /var/www/heicconverter/wp-content/uploads/heicconverter/test
-mkdir /var/www/heicconverter/wp-content/plugins/heicconverter_plugin/temp/test
-chmod 777 /var/www/heicconverter/wp-content/uploads/heicconverter/test
-chmod 777 /var/www/heicconverter/wp-content/plugins/heicconverter_plugin/temp/test
+dirName=$1
+
+mkdir $(realpath "/var/www/heicconverter/wp-content/uploads/heicconverter/${dirName}")
+mkdir $(realpath "/var/www/heicconverter/wp-content/uploads/heicconverter/${dirName}")
+chmod 777 $(realpath "/var/www/heicconverter/wp-content/uploads/heicconverter/${dirName}")
+chmod 777 $(realpath "/var/www/heicconverter/wp-content/uploads/heicconverter/${dirName}")

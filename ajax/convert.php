@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $milliseconds = round(microtime(true) * 1000);
         $random_text = rand(1000, 1000000) . "_" . $milliseconds;
 
-        $command = escapeshellcmd("sh ../script.sh");
+        $command = escapeshellcmd("sh ../script.sh '$random_text'");
         shell_exec($command);
 
         setcookie("dir_name", $random_text, time() + 31104000, "/", ".heicjpgconverter.com");
