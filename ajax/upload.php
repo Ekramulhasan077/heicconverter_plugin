@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $path = "../../../uploads/heicconverter/".$dirName."/";
         $milliseconds = round(microtime(true) * 1000);
         $random_text = rand(1000, 1000000) . "_" . $milliseconds;
-        $final_image = $fileName . $format;
+        $final_image = $fileName .".". $format;
         $cropFile = "cropped_" .$random_text . ".jpg";
         $croppedOutputPath = $path . $cropFile;
 
