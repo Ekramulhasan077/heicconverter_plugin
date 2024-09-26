@@ -15,13 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $dirName = $random_text;
     }
 
-    function convertHeicToJpg($source, $format)
+    function convertHeicToJpg($source, $format, $fileName)
     {
         $dirName = $_COOKIE["dir_name"];
         $path = "../../../uploads/heicconverter/".$dirName."/";
         $milliseconds = round(microtime(true) * 1000);
         $random_text = rand(1000, 1000000) . "_" . $milliseconds;
-        $final_image = "heicconverter_" . $random_text . "." . $format;
+        $final_image = $fileName . "." . $format;
         $cropFile = "cropped_" . $random_text . ".jpg";
         $croppedOutputPath = $path . $cropFile;
         $outputImage = $path . strtolower($final_image);
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (in_array($ext, $valid_extensions)) {
         $path = $path . strtolower($final_image);
         if (move_uploaded_file($tmp, $path)) {
-            convertHeicToJpg($path, $_POST["format"]);
+            convertHeicToJpg($path, $_POST["format"], $img);
         }
     } else {
         // $values['status'] = 0;
