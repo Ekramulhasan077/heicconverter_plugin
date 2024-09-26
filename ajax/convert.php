@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response["preview_image"] = $cropFile;
         $response["preview_path"] = "../../wp-content/uploads/heicconverter/".$dirName."/" . strtolower($final_image);
         $response["download_path"] = $path . strtolower($final_image);
-        $response["download_link"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/" . strtolower($output);
+        $response["download_link"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/" . strtolower($final_image);
         echo json_encode($response);
     }
 
