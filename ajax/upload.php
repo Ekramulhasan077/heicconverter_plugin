@@ -40,6 +40,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // $imagick->setImageFormat('jpeg');
             // $imagick->writeImage($tempImagePath);
 
+
+        $source = escapeshellarg($source);
+        $croppedOutputPath = escapeshellarg($croppedOutputPath);
+        $outputImage = escapeshellarg("$tempImagePath");
+        $command = escapeshellcmd("python3 ../main.py $source $croppedOutputPath $outputImage");
+        // Execute the command
+        shell_exec($command);
+
             // Create a new FPDF object
             $pdf = new FPDF();
             $pdf->AddPage();
@@ -66,6 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Add image to PDF
             $pdf->Image($tempImagePath, $x, $y, $newWidth, $newHeight);
+
+            
 
             // Output the PDF
             $pdf->Output('F', $path . $final_image);

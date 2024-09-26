@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $outputImage = escapeshellarg("$outputImage");
         $command = escapeshellcmd("python3 ../main.py $source $croppedOutputPath $outputImage");
         // Execute the command
-        $output = shell_exec($command);
+        shell_exec($command);
 
         // unlink($source);
 
