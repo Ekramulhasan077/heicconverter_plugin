@@ -1,5 +1,6 @@
 import pyheif
 from PIL import Image
+import sys
 
 def convert_heic_to_jpg(heic_file_path, jpg_file_path, quality=85, resize_factor=None):
     
@@ -27,7 +28,7 @@ def convert_heic_to_jpg(heic_file_path, jpg_file_path, quality=85, resize_factor
     print(f"Saved {jpg_file_path} with quality={quality}")
 
 # Example usage for low quality and smaller size
-convert_heic_to_jpg("/var/www/heicconverter/wp-content/plugins/heicconverter_plugin/temp/619458ekramul-hasan.HEIC", "/var/www/heicconverter/wp-content/plugins/heicconverter_plugin/temp/output_low_quality_resized.jpg", quality=25, resize_factor=0.2)  # Resize to 50%
+convert_heic_to_jpg(f"{sys.argv[1]}", f"{sys.argv[2]}", quality=25, resize_factor=0.2)  # Resize to 50%
 
 
 
