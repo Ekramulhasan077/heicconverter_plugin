@@ -41,11 +41,15 @@ fileInput.addEventListener('change', loadFile);
 
 var loadFile = function (event) {
     const input = event.target;
-    let maxFile = '<?php echo esc_html($setting_row->max_file_upload); ?>';
-    if (input.files.length > maxFile) {
-        alert("You can upload a maximum of " + maxFile + " files.");
+    let maxFile = '<?php echo intval($_COOKIE["convert_image"]); ?>';
+    if (maxFile > 3) {
+        alert("You can upload a maximum of 30 files.");
         return false;
     }
+    // if (input.files.length > maxFile) {
+    //     alert("You can upload a maximum of " + maxFile + " files.");
+    //     return false;
+    // }
     document.getElementById("drop_down_body").style.pointerEvents = "none";
 
     document.getElementById("again-button").style.pointerEvents = "painted";

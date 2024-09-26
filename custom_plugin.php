@@ -22,7 +22,6 @@ add_action('wp_enqueue_scripts', 'custom_plugin_enqueue_files');
 
 // Add custom HTML to pages and posts
 function custom_plugin_add_html($content) {
-    echo "Count" . $_COOKIE["convert_image"];
     if (is_page('heic-to-png')) {
         
         $custom_html = '
