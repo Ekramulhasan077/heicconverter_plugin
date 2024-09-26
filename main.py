@@ -27,7 +27,7 @@ def convert_heic_to_jpg(heic_file_path, jpg_file_path, quality=85, resize_factor
     print(f"Saved {jpg_file_path} with quality={quality}")
 
 # Example usage for low quality and smaller size
-convert_heic_to_jpg("ekramul-hasan.HEIC", "output_low_quality_resized.jpg", quality=25, resize_factor=0.2)  # Resize to 50%
+convert_heic_to_jpg("temp/619458ekramul-hasan.HEIC", "output_low_quality_resized.jpg", quality=25, resize_factor=0.2)  # Resize to 50%
 
 
 
