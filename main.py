@@ -2,9 +2,10 @@ import pyheif
 from PIL import Image
 
 def convert_heic_to_jpg(heic_file_path, jpg_file_path, quality=85, resize_factor=None):
+    print("ok")
     # Read the HEIC file
     heif_file = pyheif.read(heic_file_path)
-    print("ok")
+    
     # Convert to a Pillow Image
     image = Image.frombytes(
         heif_file.mode, 
