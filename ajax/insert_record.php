@@ -24,11 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_COOKIE["convert_image"])) {
 
         $countImg = $_COOKIE["convert_image"];
-        setcookie("dir_name", intval($countImg) + 1, time() + 31104000, "/", ".heicjpgconverter.com");
+        setcookie("convert_image", intval($countImg) + 1, time() + 31104000, "/", ".heicjpgconverter.com");
         
     }else{
         $countImg = '0';
-        setcookie("dir_name", intval($countImg) + 1, time() + 31104000, "/", ".heicjpgconverter.com");
+        setcookie("convert_image", intval($countImg) + 1, time() + 31104000, "/", ".heicjpgconverter.com");
     }
 }
 ?>
