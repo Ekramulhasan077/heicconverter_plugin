@@ -171,7 +171,7 @@ function uploadImage(layoutId) {
             downloadLink.innerHTML = '<i class="zp zp-download"></i>Download';
             document.getElementsByClassName("control-box")[layoutId].appendChild(downloadLink);
             document.getElementsByClassName("control-box")[layoutId].classList.add("done");
-            document.getElementsByClassName("display-image")[layoutId].src = "../wp-content/uploads/heicconverter/" + response.preview_image;
+            document.getElementsByClassName("display-image")[layoutId].src = response.preview_image;
             
             allConvertedFile.push(response.download_path);
             if (totalImage == index) {

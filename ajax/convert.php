@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response["message"] = 'Completed.';
         $response['convert_type'] = strtoupper($format);
         $response["download_file"] = $final_image;
-        $response["preview_image"] = $cropFile;
+        $response["preview_image"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/".$dirName."/" . $cropFile;
         $response["preview_path"] = "../../wp-content/uploads/heicconverter/".$dirName."/" . strtolower($final_image);
         $response["download_path"] = $path . strtolower($final_image);
         $response["download_link"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/" . $dirName . "/" .strtolower($final_image);
