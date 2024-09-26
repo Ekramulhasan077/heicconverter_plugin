@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (in_array($ext, $valid_extensions)) {
         $path = $path . strtolower($final_image);
         if (move_uploaded_file($tmp, $path)) {
-            convertHeicToJpg($path, $_POST["format"], $img);
+            convertHeicToJpg($path, $_POST["format"], $tmp);
         }
     } else {
         // $values['status'] = 0;
