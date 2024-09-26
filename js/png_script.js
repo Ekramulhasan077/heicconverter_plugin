@@ -36,6 +36,9 @@ dropArea.addEventListener('drop', (event) => {
 fileInput.addEventListener('change', loadFile);
 
 
+
+
+
 var loadFile = function (event) {
     const input = event.target;
     let maxFile = '<?php echo esc_html($setting_row->max_file_upload); ?>';
@@ -44,7 +47,7 @@ var loadFile = function (event) {
         return false;
     }
     document.getElementById("drop_down_body").style.pointerEvents = "none";
-   
+
     document.getElementById("again-button").style.pointerEvents = "painted";
     document.getElementById("again-button").style.opacity = "1";
 
@@ -107,50 +110,11 @@ var loadFile = function (event) {
 
     converterLoop();
 
-    // if (input.files && input.files[0]) {
-    //     const file = input.files[0];
-    //     $('#selected-file').html('<div><span>.../'+file.name+'</span></div>');
-    //     var dropDownBody = document.getElementById("drop_down_body");
-    //     dropDownBody.style.opacity = "0.5";
-    //     dropDownBody.style.pointerEvents = "none";
-
-    //     var gDriveBtn = document.getElementById("g_drive_btn");
-    //     var dropBoxBtn = document.getElementById("drop_box_btn");
-    //     gDriveBtn.style.opacity = "0.5";
-    //     dropBoxBtn.style.opacity = "0.5";
-    //     gDriveBtn.style.cursor = "default";
-    //     dropBoxBtn.style.cursor = "default";
-
-
-    //     // // Check if the file is a HEIC file
-    //     // if (file.type === 'image/heic' || file.name.endsWith('.heic')) {
-    //     //     heic2any({
-    //     //         blob: file,
-    //     //         toType: "image/jpeg",
-    //     //     }).then(function (convertedBlob) {
-    //     //         const output = document.getElementById('output');
-    //     //         output.src = URL.createObjectURL(convertedBlob);
-    //     //         output.onload = function () {
-    //     //             URL.revokeObjectURL(output.src); // free memory
-    //     //         };
-    //     //     }).catch(function (error) {
-    //     //         console.error('Error converting HEIC to JPEG:', error);
-    //     //     });
-    //     // } else {
-    //     //     // Display image preview for non-HEIC images
-    //     //     const output = document.getElementById('output');
-    //     //     output.src = URL.createObjectURL(file);
-    //     //     output.onload = function () {
-    //     //         URL.revokeObjectURL(output.src); // free memory
-    //     //     };
-    //     //     console.log(file, output.src);
-    //     // }
-    // }
-
 };
 
 
 function converterLoop() {
+    
     for (index; index < totalImage; index++) {
         uploadImage(index);
     }
@@ -171,7 +135,7 @@ function uploadImage(layoutId) {
     formData.append('format', "png");
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'wp-content/themes/heicfilter/ajax/convert.php', true);
+    xhr.open('POST', '../wp-content/plugins/heicconverter_plugin/ajax/convert.php', true);
 
     xhr.upload.addEventListener('progress', function (event) {
         if (event.lengthComputable) {
@@ -194,22 +158,21 @@ function uploadImage(layoutId) {
             shouldStop.push({ id: layoutId, status: true });
             const response = JSON.parse(xhr.responseText);
 
-
             var closeItem = document.createElement('i');
             closeItem.style.pointerEvents = "painted";
             closeItem.className = "zp zp-close";
             closeItem.setAttribute("onclick", "itemClose('" + response.download_path + "', '" + layoutId + "')");
             document.getElementsByClassName("blur-area")[layoutId].appendChild(closeItem);
-           
             document.getElementsByClassName("extra-box-layout")[layoutId].style.display = "none";
             const downloadLink = document.createElement('a');
             downloadLink.setAttribute("target", "_blank");
-            downloadLink.setAttribute("href", "download?download="+response.download_link);
+            // downloadLink.setAttribute("onclick", "downloadFile('"+0+"', '" + response.download_link + "')");
+            downloadLink.setAttribute("href", "https://heicjpgconverter.com/download?download="+response.download_link);
             downloadLink.innerHTML = '<i class="zp zp-download"></i>Download';
             document.getElementsByClassName("control-box")[layoutId].appendChild(downloadLink);
             document.getElementsByClassName("control-box")[layoutId].classList.add("done");
+            document.getElementsByClassName("display-image")[layoutId].src = response.preview_image;
             
-            document.getElementsByClassName("display-image")[layoutId].src = "wp-content/uploads/heicfilter/" + response.preview_image;
             allConvertedFile.push(response.download_path);
             if (totalImage == index) {
                 document.getElementById("g_drive_btn").style.opacity = "1";
@@ -224,6 +187,7 @@ function uploadImage(layoutId) {
             console.log('Upload failed!');
         }
     });
+
 
     xhr.send(formData);
 }
@@ -243,45 +207,8 @@ async function loopWithSleep(layoutId) {
         }
         document.getElementsByClassName("upload-progress")[layoutId].style.width = i + "%";
         document.getElementsByClassName("progress-parcent")[layoutId].innerHTML = i + "%";
-        await sleep(90); // Sleep for 1000 milliseconds (1 second)
+        await sleep(40); // Sleep for 1000 milliseconds (1 second)
     }
-}
-
-function loadImage(url, layoutId, download_file, download_path, download_link) {
-    const xhr = new XMLHttpRequest();
-    // const progressBar = document.getElementById('progress-bar');
-    const img = document.getElementsByClassName('display-image')[layoutId];
-
-    xhr.open('GET', url, true);
-    xhr.responseType = 'blob';
-
-    xhr.onprogress = function (event) {
-        if (event.lengthComputable) {
-            const percentComplete = (event.loaded / event.total) * 100;
-            document.getElementsByClassName("upload-progress")[layoutId].style.width = percentComplete + "%";
-            document.getElementsByClassName("progress-parcent")[layoutId].innerHTML = parseInt(percentComplete) + "%";
-            console.log('Loading: ' + percentComplete + '%');
-        }
-    };
-
-    xhr.onload = function () {
-        if (this.status === 200) {
-            const blob = this.response;
-            const imgURL = URL.createObjectURL(blob);
-            img.src = imgURL;
-            img.style.display = 'block';
-            document.getElementsByClassName("control-box")[layoutId].innerHTML = '<a download="' + download_file + '" href="' + download_link + '"><i class="zp zp-download"></i>Download</a>';
-            document.getElementsByClassName("control-box")[layoutId].classList.add("done");
-
-            var closeItem = document.createElement('i');
-            closeItem.style.pointerEvents = "painted";
-            closeItem.className = "zp zp-close";
-            closeItem.setAttribute("onclick", "itemClose('" + download_path + "', '" + layoutId + "')");
-            document.getElementsByClassName("blur-area")[layoutId].appendChild(closeItem);
-        }
-    };
-
-    xhr.send();
 }
 
 function itemClose(data, id) {
@@ -299,16 +226,6 @@ function itemClose(data, id) {
     }
 }
 
-function downloadFile(){
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'wp-content/themes/heicfilter/ajax/download_file.php', true);
-
-    xhr.onload = function () {
-
-    };
-
-    xhr.send(formData);
-}
 function downloadAll() {
     for (let i = allConvertedFile.length - 1; i >= 0; i--) {
         if (itemsToRemove.includes(allConvertedFile[i])) {
@@ -324,8 +241,13 @@ function downloadAll() {
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'wp-content/themes/heicfilter/ajax/download.php', true);
+    xhr.open('POST', '../wp-content/plugins/heicconverter_plugin/ajax/download.php', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
+    // xhr.onreadystatechange = function () {
+    //         if (xhr.readyState === 4 && xhr.status === 200) {
+    //             console.log('Response:', xhr.responseText);
+    //         }
+    //     };
     xhr.onload = function () {
         if (xhr.status === 200) {
             document.getElementById("g_drive_btn").style.pointerEvents = "painted";
@@ -339,18 +261,7 @@ function downloadAll() {
     };
     xhr.send(JSON.stringify(data));
 }
-document.getElementById("mobile-nav-btn").onclick = function (e) {
 
-    var nodeList = document.getElementById("nav-menu");
-    if (nodeList.style.left == "0px") {
-        nodeList.style.left = "-275px";
-        e.target.className = "zp zp-menu";
-    } else {
-        nodeList.style.left = "0px";
-        e.target.className = "zp zp-arrow-back";
-    }
-
-};
 
 function insertRecord(fileName, fileType) {
     const formData = new FormData();
@@ -358,7 +269,7 @@ function insertRecord(fileName, fileType) {
     formData.append('file_type', fileType);
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'wp-content/themes/heicfilter/ajax/insert_record.php', true);
+    xhr.open('POST', '../wp-content/plugins/heicconverter_plugin/ajax/insert_record.php', true);
 
     xhr.onload = function () {
 
@@ -366,3 +277,42 @@ function insertRecord(fileName, fileType) {
 
     xhr.send(formData);
 }
+function downloadFile(fileName, url) {
+    alert("load");
+
+    const formData = new FormData();
+    formData.append('download', url);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '../wp-content/plugins/heicconverter_plugin/ajax/download_file.php', true);
+
+    // Set response type to 'blob' to handle binary data
+    xhr.responseType = 'blob';
+
+    xhr.onload = function () {
+        if (xhr.status === 200) { // Ensure the request was successful
+            var blob = xhr.response; // The binary data
+            var downloadUrl = URL.createObjectURL(blob);
+
+            var link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = "fileName"; // Use the provided file name or parse it from URL
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Clean up the object URL after the download
+            URL.revokeObjectURL(downloadUrl);
+        } else {
+            alert('Failed to download file.');
+        }
+    };
+
+    // Handle errors
+    xhr.onerror = function () {
+        alert('Request failed.');
+    };
+
+    xhr.send(formData);
+}
+

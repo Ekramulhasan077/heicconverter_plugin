@@ -11,8 +11,10 @@ function custom_plugin_enqueue_files() {
     wp_enqueue_style('custom-plugin-css', plugin_dir_url(__FILE__) . 'css/style.css');
     if (is_page('heic-to-pdf')) {
         wp_enqueue_script('custom-plugin-js', plugin_dir_url(__FILE__) . 'js/pdf_script.js', array('jquery'), null, true);
-    }else{
-        wp_enqueue_script('custom-plugin-js', plugin_dir_url(__FILE__) . 'js/script.js', array('jquery'), null, true);
+    }else if(is_page('heic-to-png')){
+        wp_enqueue_script('custom-plugin-js', plugin_dir_url(__FILE__) . 'js/png_script.js', array('jquery'), null, true);
+    }else(is_page('heic-to-png')){
+        wp_enqueue_script('custom-plugin-js', plugin_dir_url(__FILE__) . 'js/jpg_script.js', array('jquery'), null, true);
     }
     
 }
