@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     function convertHeicToJpg($source, $format)
     {
+        $dirName = $_COOKIE["dir_name"];
         $path = "../../../uploads/heicconverter/".$dirName."/";
         $milliseconds = round(microtime(true) * 1000);
         $random_text = rand(1000, 1000000) . "_" . $milliseconds;
@@ -64,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response["preview_image"] = $cropFile;
         $response["preview_path"] = "../../wp-content/uploads/heicconverter/".$dirName."/" . strtolower($final_image);
         $response["download_path"] = $path . strtolower($final_image);
-        $response["download_link"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/".$dirName. "/" .strtolower($final_image);
+        $response["download_link"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/" . $dirName . "/" .strtolower($final_image);
         echo json_encode($response);
     }
 
