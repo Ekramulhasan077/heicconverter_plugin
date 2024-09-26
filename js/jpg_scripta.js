@@ -41,7 +41,7 @@ fileInput.addEventListener('change', loadFile);
 
 var loadFile = function (event) {
     const input = event.target;
-    let maxFile = '<?php echo intval($_COOKIE["convert_image"]); ?>';
+    let maxFile = getCookie("convert_image");
     if (maxFile > 3) {
         alert("You can upload a maximum of 30 files.");
         return false;
@@ -116,6 +116,24 @@ var loadFile = function (event) {
 
 };
 
+
+function getCookie(name) {
+    let cookieArr = document.cookie.split(";");
+    
+    for(let i = 0; i < cookieArr.length; i++) {
+        let cookiePair = cookieArr[i].split("=");
+        
+        // Remove white space
+        let key = cookiePair[0].trim();
+        
+        if (key === name) {
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    
+    // If cookie not found
+    return null;
+}
 
 function converterLoop() {
     
