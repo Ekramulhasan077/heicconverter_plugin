@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // $imagick->clear();
         // $croppedImage->clear();
 
-        $command = escapeshellcmd("ls -l ../ekramul-hasan.HEIC");
+        $command = escapeshellcmd("python3 ../main.py");
         // Execute the command
         $output = shell_exec($command);
 
