@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $final_image = $fileName . "." . $format;
         $cropFile = "cropped_" . $random_text . ".jpg";
         $croppedOutputPath = $path . $cropFile;
-        $outputImage = $path . strtolower($final_image);
+        $outputImage = $path . $final_image;
 
         // // Create an Imagick object
         // $imagick = new Imagick();
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $source = escapeshellarg($source);
         $croppedOutputPath = escapeshellarg($croppedOutputPath);
         $outputImage = escapeshellarg($outputImage);
-        $command = escapeshellcmd("python3 ../main.py $source $croppedOutputPath $outputImage");
+        $command = escapeshellcmd("python3 ../main.py $source $croppedOutputPath '$outputImage'");
         // Execute the command
         $output = shell_exec($command);
 
