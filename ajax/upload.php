@@ -1,37 +1,44 @@
 <?php
 require ('fpdf.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Check if Imagick extension is loaded
-    if (!extension_loaded('imagick')) {
-        die('Imagick extension is not installed or loaded.');
-    }
-
-    function convertHeicToJpg($source, $format)
-    {
-
-        $tempImageName = 'request_for_pdf_' . rand(1000, 1000000) . '.jpg';
-        // Temporary path for the intermediate JPEG/PNG file
-        $tempImagePath = '../temp/' . $tempImageName;
-
-
-        $path = "../../../uploads/heicconverter/";
+    if (isset($_COOKIE["dir_name"])) {
+        $dirName = $_COOKIE["dir_name"];
+    }else{
         $milliseconds = round(microtime(true) * 1000);
         $random_text = rand(1000, 1000000) . "_" . $milliseconds;
-        $final_image = "heicconverter_" . $random_text . "." . $format;
+
+        $command = escapeshellcmd("sh ../script.sh '$random_text'");
+        shell_exec($command);
+
+        setcookie("dir_name", $random_text, time() + 31104000, "/", ".heicjpgconverter.com");
+        $dirName = $random_text;
+    }
+    function convertHeicToJpg($source, $format, $fileName)
+    {
+        $dirName = $_COOKIE["dir_name"];
+        $tempImageName = 'request_for_pdf_' . rand(1000, 1000000) . '.jpg';
+        // Temporary path for the intermediate JPEG/PNG file
+        $tempImagePath = '../temp/' . $dirName . "/" . $tempImageName;
+
+
+        $path = "../../../uploads/heicconverter/".$dirName."/";
+        $milliseconds = round(microtime(true) * 1000);
+        $random_text = rand(1000, 1000000) . "_" . $milliseconds;
+        $final_image = $fileName . $format;
         $cropFile = "cropped_" .$random_text . ".jpg";
         $croppedOutputPath = $path . $cropFile;
 
 
-        try {
-            // Create a new Imagick object
-            $imagick = new Imagick();
+       
+            // // Create a new Imagick object
+            // $imagick = new Imagick();
 
-            // Read the HEIC image
-            $imagick->readImage($source);
+            // // Read the HEIC image
+            // $imagick->readImage($source);
 
-            // Convert to JPEG (or PNG)
-            $imagick->setImageFormat('jpeg');
-            $imagick->writeImage($tempImagePath);
+            // // Convert to JPEG (or PNG)
+            // $imagick->setImageFormat('jpeg');
+            // $imagick->writeImage($tempImagePath);
 
             // Create a new FPDF object
             $pdf = new FPDF();
@@ -61,42 +68,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $pdf->Image($tempImagePath, $x, $y, $newWidth, $newHeight);
 
             // Output the PDF
-            $pdf->Output('F', $path . strtolower($final_image));
+            $pdf->Output('F', $path . $final_image);
 
 
-            $croppedImage = clone $imagick;
+            // $croppedImage = clone $imagick;
 
-            $croppedImage->resizeImage(200, 150, Imagick::FILTER_LANCZOS, 1); // Example resizing
+            // $croppedImage->resizeImage(200, 150, Imagick::FILTER_LANCZOS, 1); // Example resizing
 
-            $croppedImage->setImageCompressionQuality(30); // Set the quality (0-100)
+            // $croppedImage->setImageCompressionQuality(30); // Set the quality (0-100)
 
-            $croppedImage->writeImage($croppedOutputPath);
+            // $croppedImage->writeImage($croppedOutputPath);
 
-            // Clear resources
-            $imagick->clear();
-            $croppedImage->clear();
+            // // Clear resources
+            // $imagick->clear();
+            // $croppedImage->clear();
 
 
-            unlink($source);
+            // unlink($source);
 
             $response["message"] = 'Completed.';
             $response['convert_type'] = strtoupper($format);
             $response["download_file"] = $final_image;
             $response["preview_image"] = $cropFile;
-            $response["download_path"] = "../temp/" . strtolower($tempImageName);
-            $response["download_link"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/" . strtolower($final_image);
+            $response["download_path"] = "../temp/" . $dirName . "/" . strtolower($tempImageName);
+            $response["download_link"] = "https://heicjpgconverter.com/wp-content/uploads/heicconverter/". $dirName . "/" . $final_image;
             echo json_encode($response);
 
-        } catch (ImagickException $e) {
-            echo 'Imagick Error: ' . $e->getMessage();
-        } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage();
-        }
+      
 
     }
 
     $valid_extensions = array('jpeg', 'jpg', 'png', 'gif', 'bmp', 'pdf', 'doc', 'ppt', 'heic', 'HEIC'); // valid extensions
-    $path = '../temp/';
+    $path = '../temp/'.$dirName."/";
 
     $img = $_FILES['image']['name'];
     $tmp = $_FILES['image']['tmp_name'];
@@ -108,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (in_array($ext, $valid_extensions)) {
         $path = $path . strtolower($final_image);
         if (move_uploaded_file($tmp, $path)) {
-            convertHeicToJpg($path, $_POST["format"]);
+            convertHeicToJpg($path, $_POST["format"], pathinfo($img."")['filename']);
         }
     } else {
         // $values['status'] = 0;
