@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $milliseconds = round(microtime(true) * 1000);
     $random_text = rand(1000, 1000000) . "_" . $milliseconds;
-    $final_image = "heicconverter_" . $random_text . ".pdf";
+    $final_image = "heicjpgconverter.com_" . $random_text . ".pdf";
 
     $pdfFilePath = '../../../uploads/heicconverter/' . $final_image;
     $pdf->Output('F', $pdfFilePath);
