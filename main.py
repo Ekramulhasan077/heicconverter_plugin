@@ -32,5 +32,5 @@
 import sys
 
 # Print the argument to display it in the PHP output
-print(f"Received argument: turjo")
+print("Received argument: turjo")
 
