@@ -2,7 +2,7 @@
 /*
 Plugin Name: HEIC Converter
 Description: HEIC Converter is a powerful WordPress plugin designed to effortlessly convert high-quality HEIC images into JPG, PNG, and PDF formats. Perfect for photographers, bloggers, and web admins, this plugin ensures seamless compatibility with all major image formats, improving site performance and user experience.
-Version: 1.3
+Version: 1.0.3
 Author: Md Turjo
 Author URI: https://www.facebook.com/tarikulislambd.me/
 */
