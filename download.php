@@ -19,8 +19,8 @@ header('Pragma: public');
 header('Content-Length: ' . strlen($imageContent));
 
 // Output the image content
-echo $imageContent;
-exit;
+// echo $imageContent;
+// exit;
 
 
 
