@@ -2,8 +2,9 @@
 /*
 Plugin Name: HEIC Converter
 Description: A plugin to add custom HTML, CSS, and JS to all pages and posts.
-Version: 1.0
+Version: 1.2
 Author: Md Turjo
+Author URI: https://www.facebook.com/tarikulislambd.me/
 */
 
 // Enqueue the CSS and JavaScript files
