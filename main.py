@@ -1,22 +1,28 @@
 import pyheif
 from PIL import Image
 import sys
+import os
 
 def convert_heic_to_jpg(heic_file_path, jpg_file_path, quality=85, resize_factor=None):
-    
-    # Read the HEIC file
-    heif_file = pyheif.read(heic_file_path)
-    
-    # Convert to a Pillow Image
-    image = Image.frombytes(
-        heif_file.mode, 
-        heif_file.size, 
-        heif_file.data,
-        "raw",
-        heif_file.mode,
-        heif_file.stride,
-    )
-    
+    ext = os.path.splitext(heic_file_path)[1].lower()
+
+    if ext == ".heic":
+        # Read the HEIC file
+        heif_file = pyheif.read(heic_file_path)
+        # Convert to a Pillow Image
+        image = Image.frombytes(
+            heif_file.mode, 
+            heif_file.size, 
+            heif_file.data,
+            "raw",
+            heif_file.mode,
+            heif_file.stride,
+        )
+    elif ext in [".jpg", ".jpeg"]:
+        # Open JPEG file
+        image = Image.open(heic_file_path)
+    else:
+        raise ValueError(f"Unsupported file format: {ext}")    
     # Resize image if resize_factor is provided
     if resize_factor:
         new_size = (int(image.width * resize_factor), int(image.height * resize_factor))

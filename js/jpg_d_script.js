@@ -47,17 +47,17 @@ var loadFile = function (event) {
         return false;
     }
 
-    const file = input.files[0];
-    const fileName = file.name.toLowerCase();
-    const validExtensions = ['.heic', '.HEIC'];
+    // const file = input.files[0];
+    // const fileName = file.name.toLowerCase();
+    // const validExtensions = ['.heic', '.HEIC'];
 
-    // Check if the file extension is valid
-    const isValid = validExtensions.some(ext => fileName.endsWith(ext));
+    // // Check if the file extension is valid
+    // const isValid = validExtensions.some(ext => fileName.endsWith(ext));
 
-    if (!isValid) {
-        alert("Please select a HEIC image.");
-        return false;
-    }
+    // if (!isValid) {
+    //     alert("Please select a HEIC image.");
+    //     return false;
+    // }
 
 
     document.getElementById("drop_down_body").style.pointerEvents = "none";
