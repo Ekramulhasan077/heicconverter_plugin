@@ -47,7 +47,7 @@ var loadFile = function (event) {
         return false;
     }
 
-    const file = imageInput.files[0];
+    const file = input.files[0];
     const fileName = file.name.toLowerCase();
     const validExtensions = ['.heic', '.HEIC'];
 
