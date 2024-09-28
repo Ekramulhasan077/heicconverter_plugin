@@ -46,6 +46,20 @@ var loadFile = function (event) {
         alert("You can upload a maximum of " + maxFile + " files.");
         return false;
     }
+
+    const file = imageInput.files[0];
+    const fileName = file.name.toLowerCase();
+    const validExtensions = ['.heic', '.HEIC'];
+
+    // Check if the file extension is valid
+    const isValid = validExtensions.some(ext => fileName.endsWith(ext));
+
+    if (!isValid) {
+        alert("Please select a HEIC image.");
+        return false;
+    }
+
+
     document.getElementById("drop_down_body").style.pointerEvents = "none";
 
     document.getElementById("again-button").style.pointerEvents = "painted";

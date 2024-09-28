@@ -14,7 +14,7 @@ function custom_plugin_enqueue_files() {
     }else if(is_page('heic-to-png')){
         wp_enqueue_script('custom-plugin-js', plugin_dir_url(__FILE__) . 'js/png_script.js', array('jquery'), null, true);
     }else{
-        wp_enqueue_script('custom-plugin-js', plugin_dir_url(__FILE__) . 'js/jpg_script.js', array('jquery'), null, true);
+        wp_enqueue_script('custom-plugin-js', plugin_dir_url(__FILE__) . 'js/jpg_c_script.js', array('jquery'), null, true);
     }
     
 }

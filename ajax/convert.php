@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
 
-    $valid_extensions = array('heic', 'HEIC'); // valid extensions
+    $valid_extensions = array('jpeg', 'jpg', 'png', 'gif', 'bmp', 'pdf', 'doc', 'ppt', 'heic', 'HEIC'); // valid extensions
     $path = '../temp/' .$dirName."/";
 
     $img = $_FILES['image']['name'];
