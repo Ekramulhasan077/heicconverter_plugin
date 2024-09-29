@@ -6,7 +6,8 @@ $imageContent = file_get_contents($imageUrl);
 if ($imageContent === FALSE) {
     http_response_code(404);
     echo 'Image not found.';
-    exit;
+    echo '<script type="text/javascript">window.close();</script>';
+    // exit;
 }
 
 // Set headers to force download
@@ -18,8 +19,8 @@ header('Cache-Control: must-revalidate');
 header('Pragma: public');
 header('Content-Length: ' . strlen($imageContent));
 
-// Output the image content
-// echo $imageContent;
+
+echo '<script type="text/javascript">window.close();</script>';
 // exit;
 
 
