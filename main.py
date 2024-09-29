@@ -6,6 +6,8 @@ import os
 def convert_heic_to_jpg(heic_file_path, jpg_file_path, quality=85, resize_factor=None):
     ext = os.path.splitext(heic_file_path)[1].lower()
 
+    
+
     if ext == ".heic":
         # Read the HEIC file
         heif_file = pyheif.read(heic_file_path)
@@ -29,8 +31,13 @@ def convert_heic_to_jpg(heic_file_path, jpg_file_path, quality=85, resize_factor
         image = image.resize(new_size, Image.Resampling.LANCZOS)  # Use LANCZOS for high-quality resampling
         print(f"Resized image to: {new_size}")
     
+    targetExt = os.path.splitext(jpg_file_path)[1].lower()
+    if targetExt == '.png':
+        sFormat = "PNG"
+    else:
+        sFormat = "JPEG"
     # Save as JPEG with the specified quality
-    image.save(jpg_file_path, "JPEG", quality=quality, optimize=True, progressive=True)
+    image.save(jpg_file_path, sFormat, quality=quality, optimize=True, progressive=True)
     print(f"Saved {jpg_file_path} with quality={quality}")
 
 # Example usage for low quality and smaller size
