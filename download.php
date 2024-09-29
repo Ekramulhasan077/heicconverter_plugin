@@ -20,6 +20,7 @@ header('Content-Length: ' . strlen($imageContent));
 
 
 echo $imageContent;
+echo '<script type="text/javascript">window.close();</script>';
 exit;
 
 
